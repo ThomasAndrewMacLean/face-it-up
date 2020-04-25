@@ -25,6 +25,20 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-110018468-15"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110018468-15', { 'anonymize_ip': true });`,
+            }}
+          ></script>
+
           <link rel="manifest" href={`${prefix}/manifest.json`} />
 
           <meta name="application-name" content="Draag een masker" />
