@@ -49,7 +49,9 @@ export function getOrientation(file, callback) {
   reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
 }
 
-export const picFile = () => {
+export const picFile = (setLoading, sethasPic) => {
+  setLoading(true);
+  sethasPic(true);
   const fileInput = document.getElementById('fileinput');
   const file = fileInput.files[0];
   if (!file) return;
@@ -92,8 +94,6 @@ export const picFile = () => {
         canvas.height = smallest;
         canvas.style.height = smallest;
 
-        console.log('orientation: ', orientation);
-
         ctx.drawImage(
           img,
           0,
@@ -121,7 +121,7 @@ export const picFile = () => {
               .then((response) => response.json())
               .then((response) => {
                 fileInput.value = '';
-                console.log(JSON.parse(response.body));
+                // console.log(JSON.parse(response.body));
                 // check for error
                 JSON.parse(response.body).FaceDetails.forEach((face) => {
                   const top =
@@ -142,6 +142,8 @@ export const picFile = () => {
                       canvas.width * right - canvas.width * left,
                       canvas.width * bottom - canvas.width * top
                     );
+
+                       setLoading(false);
                   };
                   img.src = './mask.png';
                 });
