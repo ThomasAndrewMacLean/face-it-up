@@ -19,6 +19,13 @@ const IndexPage = () => {
   }, []);
   const [loading, setLoading] = useState(false);
   const [hasPic, sethasPic] = useState(false);
+
+  const download = () => {
+    var link = document.createElement('a');
+    link.download = 'masker.png';
+    link.href = document.getElementById('canvas').toDataURL();
+    link.click();
+  };
   return (
     <Main>
       <Head>
@@ -30,6 +37,14 @@ const IndexPage = () => {
       </Head>
       <h1>Draag een masker</h1>
 
+      <a
+        id="link"
+        href="https://twitter.com/hashtag/draag-een-masker"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        #draageenmasker
+      </a>
       <div className="wrapper">
         <canvas width="250" height="250" id="canvas"></canvas>
         {!hasPic && (
@@ -46,14 +61,19 @@ const IndexPage = () => {
         />
       </div>
       {hasPic && (
-        <label id="opnieuw" htmlFor="fileinput">
-          nieuwe foto
-        </label>
+        <>
+          <label id="opnieuw" htmlFor="fileinput">
+            nieuwe foto
+          </label>
+          <button id="download-btn" onClick={download}>
+            download masker
+          </button>
+        </>
       )}
       <footer>
         Made with ❤️{' '}
         <a
-          href="https://thomasmaclean.be"
+          href="mailto:hello@thomasmaclean.be"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -73,10 +93,29 @@ const Main = styled.main`
     padding: 8px 16px;
     cursor: pointer;
   }
-  h1 {
-    margin: 3rem 0;
+
+  #link {
+    margin-bottom: 2rem;
+    display: flex;
+    color: blue;
   }
-  height: calc(var(--vh, 1vh) * 100);
+
+  #download-btn {
+    font-size: 1.4rem;
+    font-family: inherit;
+    text-decoration: underline;
+    border: none;
+    background: none;
+    margin-top: 1rem;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    margin: 3rem 0 2rem 0;
+  }
+  min-height: calc(var(--vh, 1vh) * 100);
 
   width: 100vw;
   background: rgb(184, 254, 242);
@@ -85,7 +124,7 @@ const Main = styled.main`
     rgba(184, 254, 242, 1) 0%,
     rgba(255, 255, 255, 1) 80%
   );
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,9 +176,7 @@ const Main = styled.main`
   }
 
   footer {
-    position: absolute;
-    bottom: 0;
-
+    margin-top: auto;
     padding-bottom: 5px;
 
     a {
