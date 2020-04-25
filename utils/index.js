@@ -162,6 +162,7 @@ export const picFile = () => {
                   const mouthRight = face.Landmarks.find(
                     (x) => x.Type === 'mouthRight'
                   );
+                  
 
                   const nose = face.Landmarks.find((x) => x.Type === 'nose');
                   ctx.beginPath();
