@@ -39,7 +39,7 @@ const IndexPage = () => {
 
       <a
         id="link"
-        href="https://twitter.com/hashtag/draag-een-masker"
+        href="https://twitter.com/hashtag/draageenmasker"
         target="_blank"
         rel="noopener noreferrer"
       >
