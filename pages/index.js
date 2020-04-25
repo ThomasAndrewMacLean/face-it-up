@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { T } from '../components';
 import { UPLOAD_URL } from '../constants';
-import { uploadFile } from '../utils';
+import { uploadFile, picFile } from '../utils';
 
 const IndexPage = () => {
   const [loading, setLoading] = useState(false);
@@ -21,11 +21,7 @@ const IndexPage = () => {
       {loading}
       <T id="test"></T>
       <canvas id="canvas"></canvas>
-      <input
-        id="fileinput"
-        type="file"
-        onChange={() => uploadFile(setLoading)}
-      />
+      <input id="fileinput" type="file" onChange={() => picFile(setLoading)} />
     </Main>
   );
 };
