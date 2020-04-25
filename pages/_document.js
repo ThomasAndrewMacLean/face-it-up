@@ -81,12 +81,12 @@ export default class MyDocument extends Document {
 /> */}
 
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:url" content="https://bumperballs.be" />
+          <meta name="twitter:url" content="https://mask-it-up.be" />
           <meta name="twitter:title" content="Westerling &amp; MacLean" />
           <meta name="twitter:description" content="Westerling &amp; MacLean" />
           <meta
             name="twitter:image"
-            content="https://bumperballs.be/android-chrome-192x192.png"
+            content="https://mask-it-up.be/android-chrome-192x192.png"
           />
           {/*
 <meta name="twitter:creator" content="@DavidWShadow" /> */}
@@ -94,10 +94,10 @@ export default class MyDocument extends Document {
           <meta property="og:title" content="Westerling &amp; MacLean" />
           <meta property="og:description" content="Westerling &amp; MacLean" />
           <meta property="og:site_name" content="Westerling &amp; MacLean" />
-          <meta property="og:url" content="https://bumperballs.be" />
+          <meta property="og:url" content="https://mask-it-up.be" />
           <meta
             property="og:image"
-            content="https://bumperballs.be/apple-touch-icon.png"
+            content="https://mask-it-up.be/apple-touch-icon.png"
           />
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
