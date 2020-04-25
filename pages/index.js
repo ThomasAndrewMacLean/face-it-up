@@ -50,6 +50,12 @@ const IndexPage = () => {
           nieuwe foto
         </label>
       )}
+      <footer>
+        Made with ❤️{' '}
+        <a href="thomasmaclean.be" target="_blank" rel="noopener noreferrer">
+          Thomas MacLean
+        </a>
+      </footer>
     </Main>
   );
 };
@@ -123,6 +129,17 @@ const Main = styled.main`
     img {
       width: 50%;
       height: 50%;
+    }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+
+    padding-bottom: 5px;
+
+    a {
+      color: inherit;
     }
   }
 `;
