@@ -124,23 +124,26 @@ export const picFile = () => {
                 console.log(JSON.parse(response.body));
                 // check for error
                 JSON.parse(response.body).FaceDetails.forEach((face) => {
-                  const mouthLeft = face.Landmarks.find(
-                    (x) => x.Type === 'mouthLeft'
-                  );
-                  const mouthRight = face.Landmarks.find(
-                    (x) => x.Type === 'mouthRight'
-                  );
+                  const top =
+                    (face.Landmarks.find((x) => x.Type === 'eyeLeft').Y +
+                      face.Landmarks.find((x) => x.Type === 'eyeLeft').Y +
+                      face.Landmarks.find((x) => x.Type === 'nose').Y) /
+                    3;
+                  const left = face.BoundingBox.Left;
+                  const right = face.BoundingBox.Left + face.BoundingBox.Width;
+                  const bottom = face.BoundingBox.Top + face.BoundingBox.Height;
 
-                  const nose = face.Landmarks.find((x) => x.Type === 'nose');
-                  ctx.beginPath();
-
-                  ctx.fillRect(
-                    canvas.width * mouthLeft.X,
-                    canvas.height * nose.Y,
-                    canvas.width * mouthRight.X - canvas.width * mouthLeft.X,
-                    canvas.width * mouthLeft.Y - canvas.width * nose.Y
-                  );
-                  ctx.stroke();
+                  var img = new Image();
+                  img.onload = function () {
+                    ctx.drawImage(
+                      img,
+                      canvas.width * left,
+                      canvas.height * top,
+                      canvas.width * right - canvas.width * left,
+                      canvas.width * bottom - canvas.width * top
+                    );
+                  };
+                  img.src = './mask.png';
                 });
               });
           };

@@ -3,3 +3,4 @@ node_modules
 .next
 out
 test.js
+.DS_Store
