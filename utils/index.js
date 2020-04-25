@@ -92,6 +92,7 @@ export const picFile = () => {
         canvas.height = smallest;
         canvas.style.height = smallest;
 
+        console.log('orientation: ', orientation);
         switch (orientation) {
           case 2:
             ctx.translate(width, 0);

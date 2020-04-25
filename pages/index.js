@@ -20,8 +20,13 @@ const IndexPage = () => {
       <h1>{UPLOAD_URL}</h1>
       {loading}
       <T id="test"></T>
-      <canvas id="canvas"></canvas>
-      <input id="fileinput" type="file" onChange={() => picFile(setLoading)} />
+      <canvas width="250" height="250" id="canvas"></canvas>
+      <input
+        id="fileinput"
+        type="file"
+        accept="image/*"
+        onChange={() => picFile(setLoading)}
+      />
     </Main>
   );
 };
