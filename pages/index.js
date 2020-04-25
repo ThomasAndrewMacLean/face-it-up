@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 
 import { T } from '../components';
-import { useStore } from '../store';
-import { HELLOWORLD } from '../constants';
-import { add } from '../utils';
+import { UPLOAD_URL } from '../constants';
+import { uploadFile } from '../utils';
 
 const IndexPage = () => {
-  const { count, countPlusOne } = useStore();
+  const [loading, setLoading] = useState(false);
   return (
     <Main>
       <Head>
-        <title>BMS Rent</title>
+        <title>Bumperballs</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
       </Head>
-      <h1>{HELLOWORLD}</h1>
+      <h1>{UPLOAD_URL}</h1>
+      {loading}
       <T id="test"></T>
-      <button onClick={countPlusOne}>+</button>
-      {count}+ 1 = {add(count, 1)}
+      <canvas id="canvas"></canvas>
+      <input
+        id="fileinput"
+        type="file"
+        onChange={() => uploadFile(setLoading)}
+      />
     </Main>
   );
 };
