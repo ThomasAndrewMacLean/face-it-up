@@ -53,13 +53,13 @@ export const picFile = () => {
   const fileInput = document.getElementById('fileinput');
   const file = fileInput.files[0];
   if (!file) return;
-  var canvas = document.getElementById('canvas');
-
-  canvas.height = 250;
-  canvas.width = 250;
 
   getOrientation(file, (orientation) => {
-    var ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('canvas');
+
+    canvas.height = 250;
+    canvas.width = 250;
+    const ctx = canvas.getContext('2d');
 
     var img = new Image();
     if (file.type.match('image.*')) {
@@ -162,7 +162,6 @@ export const picFile = () => {
                   const mouthRight = face.Landmarks.find(
                     (x) => x.Type === 'mouthRight'
                   );
-                  
 
                   const nose = face.Landmarks.find((x) => x.Type === 'nose');
                   ctx.beginPath();
@@ -189,76 +188,76 @@ export const picFile = () => {
     }
   });
 };
-export const uploadFile = (setLoading) => {
-  setLoading(true);
+// export const uploadFile = (setLoading) => {
+//   setLoading(true);
 
-  const fileInput = document.getElementById('fileinput');
-  const canvas = document.getElementById('canvas');
-  canvas.height = 250;
-  canvas.width = 250;
-  var ctx = canvas.getContext('2d');
-  ctx.font = '10px Arial';
-  ctx.fillStyle = 'black';
+//   const fileInput = document.getElementById('fileinput');
+//   const canvas = document.getElementById('canvas');
+//   canvas.height = 250;
+//   canvas.width = 250;
+//   var ctx = canvas.getContext('2d');
+//   ctx.font = '10px Arial';
+//   ctx.fillStyle = 'black';
 
-  var url = URL.createObjectURL(fileInput.files[0]);
-  var img = new Image();
-  img.onload = function () {
-    ctx.drawImage(img, 0, 0);
-  };
-  img.src = url;
+//   var url = URL.createObjectURL(fileInput.files[0]);
+//   var img = new Image();
+//   img.onload = function () {
+//     ctx.drawImage(img, 0, 0);
+//   };
+//   img.src = url;
 
-  const file = fileInput.files[0];
-  var reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    fetch(UPLOAD_URL, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ filee: reader.result }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        fileInput.value = '';
-        setLoading(false);
-        console.log(JSON.parse(response.body));
-        // check for error
-        JSON.parse(response.body).FaceDetails.forEach((face) => {
-          const mouthLeft = face.Landmarks.find((x) => x.Type === 'mouthLeft');
-          const mouthRight = face.Landmarks.find(
-            (x) => x.Type === 'mouthRight'
-          );
-          ctx.beginPath();
+//   const file = fileInput.files[0];
+//   var reader = new FileReader();
+//   reader.readAsDataURL(file);
+//   reader.onload = function () {
+//     fetch(UPLOAD_URL, {
+//       method: 'POST',
+//       headers: {
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ filee: reader.result }),
+//     })
+//       .then((response) => response.json())
+//       .then((response) => {
+//         fileInput.value = '';
+//         setLoading(false);
+//         console.log(JSON.parse(response.body));
+//         // check for error
+//         JSON.parse(response.body).FaceDetails.forEach((face) => {
+//           const mouthLeft = face.Landmarks.find((x) => x.Type === 'mouthLeft');
+//           const mouthRight = face.Landmarks.find(
+//             (x) => x.Type === 'mouthRight'
+//           );
+//           ctx.beginPath();
 
-          console.log(
-            canvas.width * mouthLeft.X,
-            canvas.height * mouthLeft.Y,
-            canvas.width * mouthRight.X,
-            canvas.height * mouthRight.Y
-          );
-          ctx.rect(
-            canvas.width * mouthLeft.X,
-            canvas.height * mouthLeft.Y,
-            10,
-            10
-          );
-          ctx.stroke();
+//           console.log(
+//             canvas.width * mouthLeft.X,
+//             canvas.height * mouthLeft.Y,
+//             canvas.width * mouthRight.X,
+//             canvas.height * mouthRight.Y
+//           );
+//           ctx.rect(
+//             canvas.width * mouthLeft.X,
+//             canvas.height * mouthLeft.Y,
+//             10,
+//             10
+//           );
+//           ctx.stroke();
 
-          ctx.beginPath();
+//           ctx.beginPath();
 
-          ctx.rect(
-            canvas.width * mouthRight.X,
-            canvas.height * mouthRight.Y,
-            10,
-            10
-          );
-          ctx.stroke();
-        });
-      });
-  };
-  reader.onerror = function (error) {
-    console.log('Error: ', error);
-  };
-};
+//           ctx.rect(
+//             canvas.width * mouthRight.X,
+//             canvas.height * mouthRight.Y,
+//             10,
+//             10
+//           );
+//           ctx.stroke();
+//         });
+//       });
+//   };
+//   reader.onerror = function (error) {
+//     console.log('Error: ', error);
+//   };
+// };

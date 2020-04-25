@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { T } from '../components';
 import { UPLOAD_URL } from '../constants';
-import { uploadFile, picFile } from '../utils';
+import { picFile } from '../utils';
 
 const IndexPage = () => {
   const [loading, setLoading] = useState(false);
