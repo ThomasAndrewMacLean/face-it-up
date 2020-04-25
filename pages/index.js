@@ -52,7 +52,11 @@ const IndexPage = () => {
       )}
       <footer>
         Made with ❤️{' '}
-        <a href="thomasmaclean.be" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://thomasmaclean.be"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Thomas MacLean
         </a>
       </footer>
