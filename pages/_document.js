@@ -97,7 +97,7 @@ export default class MyDocument extends Document {
           <meta name="twitter:description" content="Draag een masker" />
           <meta
             name="twitter:image"
-            content="https://mask-it-up.be/android-chrome-192x192.png"
+            content="https://draag-een-masker.ml/android-chrome-192x192.png"
           />
 
           <meta name="twitter:creator" content="@7homa5m" />
