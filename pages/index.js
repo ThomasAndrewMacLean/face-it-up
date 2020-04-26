@@ -19,7 +19,9 @@ const IndexPage = () => {
   }, []);
   const [loading, setLoading] = useState(false);
   const [hasPic, sethasPic] = useState(false);
+  const [noFace, setNoFace] = useState(false);
 
+  setNoFace;
   const download = () => {
     var link = document.createElement('a');
     link.download = 'masker.png';
@@ -52,12 +54,14 @@ const IndexPage = () => {
             <img src="camera.png" alt="take a picture" />
           </label>
         )}
-        {loading && <div className="loading">Masker aan het ophalen...</div>}
+        {loading && !noFace && (
+          <div className="loading">Masker aan het ophalen...</div>
+        )}
         <input
           id="fileinput"
           type="file"
           accept="image/*"
-          onChange={() => picFile(setLoading, sethasPic)}
+          onChange={() => picFile(setLoading, sethasPic, setNoFace)}
         />
       </div>
       {hasPic && (

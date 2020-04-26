@@ -49,7 +49,7 @@ export function getOrientation(file, callback) {
   reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
 }
 
-export const picFile = (setLoading, sethasPic) => {
+export const picFile = (setLoading, sethasPic, setNoFace) => {
   setLoading(true);
   sethasPic(true);
   const fileInput = document.getElementById('fileinput');
@@ -95,45 +95,44 @@ export const picFile = (setLoading, sethasPic) => {
         canvas.style.height = smallest;
 
         const iOS =
-              !!navigator.platform &&
-              /iPad|iPhone|iPod/.test(navigator.platform);
-            // alert(orientation);
+          !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+        // alert(orientation);
 
-            if (iOS) {
-              switch (orientation) {
-                case 2:
-                  ctx.translate(width, 0);
-                  ctx.scale(-1, 1);
-                  break;
-                case 3:
-                  ctx.translate(width, height);
-                  ctx.rotate(Math.PI);
-                  break;
-                case 4:
-                  ctx.translate(0, height);
-                  ctx.scale(1, -1);
-                  break;
-                case 5:
-                  ctx.rotate(0.5 * Math.PI);
-                  ctx.scale(1, -1);
-                  break;
-                case 6:
-                  ctx.rotate(0.5 * Math.PI);
-                  ctx.translate(0, -height);
-                  break;
-                case 7:
-                  ctx.rotate(0.5 * Math.PI);
-                  ctx.translate(width, -height);
-                  ctx.scale(-1, 1);
-                  break;
-                case 8:
-                  ctx.rotate(-0.5 * Math.PI);
-                  ctx.translate(-width, 0);
-                  break;
-                default:
-                  break;
-              }
-            }
+        if (iOS) {
+          switch (orientation) {
+            case 2:
+              ctx.translate(width, 0);
+              ctx.scale(-1, 1);
+              break;
+            case 3:
+              ctx.translate(width, height);
+              ctx.rotate(Math.PI);
+              break;
+            case 4:
+              ctx.translate(0, height);
+              ctx.scale(1, -1);
+              break;
+            case 5:
+              ctx.rotate(0.5 * Math.PI);
+              ctx.scale(1, -1);
+              break;
+            case 6:
+              ctx.rotate(0.5 * Math.PI);
+              ctx.translate(0, -height);
+              break;
+            case 7:
+              ctx.rotate(0.5 * Math.PI);
+              ctx.translate(width, -height);
+              ctx.scale(-1, 1);
+              break;
+            case 8:
+              ctx.rotate(-0.5 * Math.PI);
+              ctx.translate(-width, 0);
+              break;
+            default:
+              break;
+          }
+        }
 
         ctx.drawImage(
           img,
@@ -162,7 +161,11 @@ export const picFile = (setLoading, sethasPic) => {
               .then((response) => response.json())
               .then((response) => {
                 fileInput.value = '';
-                // console.log(JSON.parse(response.body));
+                console.log(JSON.parse(response.body));
+
+                if (JSON.parse(response.body).FaceDetails.length === 0) {
+                  setNoFace(true);
+                }
                 // check for error
                 JSON.parse(response.body).FaceDetails.forEach((face) => {
                   const top =
@@ -174,6 +177,41 @@ export const picFile = (setLoading, sethasPic) => {
                   const right = face.BoundingBox.Left + face.BoundingBox.Width;
                   const bottom = face.BoundingBox.Top + face.BoundingBox.Height;
 
+                  if (iOS) {
+                    switch (orientation) {
+                      case 2:
+                        ctx.translate(width, 0);
+                        ctx.scale(-1, 1);
+                        break;
+                      case 3:
+                        ctx.translate(width, height);
+                        ctx.rotate(Math.PI);
+                        break;
+                      case 4:
+                        ctx.translate(0, height);
+                        ctx.scale(1, -1);
+                        break;
+                      case 5:
+                        ctx.rotate(0.5 * Math.PI);
+                        ctx.scale(1, -1);
+                        break;
+                      case 6:
+                        ctx.rotate(0.5 * Math.PI);
+                        ctx.translate(0, -height);
+                        break;
+                      case 7:
+                        ctx.rotate(0.5 * Math.PI);
+                        ctx.translate(width, -height);
+                        ctx.scale(-1, 1);
+                        break;
+                      case 8:
+                        ctx.rotate(-0.5 * Math.PI);
+                        ctx.translate(-width, 0);
+                        break;
+                      default:
+                        break;
+                    }
+                  }
                   var img = new Image();
                   img.onload = function () {
                     ctx.drawImage(
@@ -184,7 +222,7 @@ export const picFile = (setLoading, sethasPic) => {
                       canvas.width * bottom - canvas.width * top
                     );
 
-                       setLoading(false);
+                    setLoading(false);
                   };
                   img.src = './mask.png';
                 });
