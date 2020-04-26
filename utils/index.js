@@ -97,7 +97,7 @@ export const picFile = (setLoading, sethasPic, setNoFace) => {
         const iOS =
           !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         // alert(orientation);
-
+        ctx.save();
         if (iOS) {
           switch (orientation) {
             case 2:
@@ -178,39 +178,7 @@ export const picFile = (setLoading, sethasPic, setNoFace) => {
                   const bottom = face.BoundingBox.Top + face.BoundingBox.Height;
 
                   if (iOS) {
-                    switch (orientation) {
-                      case 2:
-                        ctx.translate(width, 0);
-                        ctx.scale(-1, 1);
-                        break;
-                      case 3:
-                        ctx.translate(width, height);
-                        ctx.rotate(Math.PI);
-                        break;
-                      case 4:
-                        ctx.translate(0, height);
-                        ctx.scale(1, -1);
-                        break;
-                      case 5:
-                        ctx.rotate(0.5 * Math.PI);
-                        ctx.scale(1, -1);
-                        break;
-                      case 6:
-                        ctx.rotate(0.5 * Math.PI);
-                        ctx.translate(0, -height);
-                        break;
-                      case 7:
-                        ctx.rotate(0.5 * Math.PI);
-                        ctx.translate(width, -height);
-                        ctx.scale(-1, 1);
-                        break;
-                      case 8:
-                        ctx.rotate(-0.5 * Math.PI);
-                        ctx.translate(-width, 0);
-                        break;
-                      default:
-                        break;
-                    }
+                    ctx.restore();
                   }
                   var img = new Image();
                   img.onload = function () {
