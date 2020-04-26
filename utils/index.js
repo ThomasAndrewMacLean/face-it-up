@@ -48,7 +48,11 @@ export function getOrientation(file, callback) {
 
   reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
 }
+const getChromeVersion = () => {
+  var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
 
+  return raw ? parseInt(raw[2], 10) : false;
+};
 export const picFile = (setLoading, sethasPic, setNoFace) => {
   setLoading(true);
   sethasPic(true);
@@ -96,9 +100,11 @@ export const picFile = (setLoading, sethasPic, setNoFace) => {
 
         const iOS =
           !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+        const oldChrome = getChromeVersion() === 80;
+
         // alert(orientation);
         ctx.save();
-        if (iOS) {
+        if (iOS || oldChrome) {
           switch (orientation) {
             case 2:
               ctx.translate(width, 0);
@@ -177,7 +183,7 @@ export const picFile = (setLoading, sethasPic, setNoFace) => {
                   const right = face.BoundingBox.Left + face.BoundingBox.Width;
                   const bottom = face.BoundingBox.Top + face.BoundingBox.Height;
 
-                  if (iOS) {
+                  if (iOS || oldChrome) {
                     ctx.restore();
                   }
                   var img = new Image();
