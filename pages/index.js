@@ -152,7 +152,7 @@ const Main = styled.main`
     top: 0;
     left: 0;
     right: 0;
-
+    border-radius: 27px;
     bottom: 0;
     display: flex;
     justify-content: center;
