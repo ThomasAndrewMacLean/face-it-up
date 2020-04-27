@@ -3,6 +3,11 @@ import Document, { Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
 import { prefix } from '../utils';
+import * as Sentry from '@sentry/browser';
+
+
+Sentry.init({dsn: "https://e0100cc70b2149e5b99370f6c9a1883c@o186762.ingest.sentry.io/5215255"});
+
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
